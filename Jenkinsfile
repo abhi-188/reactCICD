@@ -39,7 +39,7 @@ pipeline {
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker run -d -p 80:80 habhi/react_devops:latest ' 
+                    sh 'docker run -d habhi/react_devops:latest ' 
                 }
             }
         }
