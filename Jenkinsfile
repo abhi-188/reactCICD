@@ -23,7 +23,7 @@ pipeline {
             steps{
                 script{
                     echo '-----------------------------Pushing Image----------------------------------------'
-                    docker.withRegistry('', 'Docker_ID') {
+                    docker.withRegistry('', '83626bcd-d2fa-4b05-83e0-1a4436f8804d') {
                         sh 'docker push habhi/react_devops'
                         echo '-------------------------Image Successfully pushed--------------------------------'
                     }
@@ -41,8 +41,8 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh "sudo rm -rf /var/www/react-app"
-                sh "sudo cp -r ${WORKSPACE}/build/ /var/www/react-app/"
+                sh "rm -rf /var/www/react-app"
+                sh "cp -r ${WORKSPACE}/build/ /var/www/react-app/"
             }
         }
     }
