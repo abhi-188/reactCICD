@@ -35,7 +35,7 @@ pipeline {
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker run --name react-app -d -p 80:80 habhi/react_devops ' 
+                    sh 'docker run --name react_app -d -p 80:80 habhi/react_devops ' 
                 }
             }
         }
