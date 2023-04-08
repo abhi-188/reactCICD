@@ -8,7 +8,7 @@ pipeline {
             }
         }
 
-        
+
         stage('Creating Image of build') {
             steps{
                 script {
@@ -39,7 +39,7 @@ pipeline {
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker run -d -p 80:80 habhi/react_devops ' 
+                    sh 'docker run -d -p 80:80 habhi/react_devops:latest ' 
                 }
             }
         }
