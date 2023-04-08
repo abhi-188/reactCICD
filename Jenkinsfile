@@ -39,11 +39,11 @@ pipeline {
                 }
             }
         }
-        stage("Deploy") {
-            steps {
-                sh "rm -rf /var/www/react_app"
-                sh "cp -r ${WORKSPACE}/build/ /var/www/react_app/"
-            }
-        }
+        // stage("Deploy") {
+        //     steps {
+        //         sh "rm -rf /var/www/react_app"
+        //         sh "cp -r ${WORKSPACE}/build/ /var/www/react_app/"
+        //     }
+        // }
     }
 }
