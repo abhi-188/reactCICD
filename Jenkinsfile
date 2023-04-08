@@ -35,7 +35,7 @@ pipeline {
             }
         }
 
-        stage('Running  \container'){
+        stage('Running container'){
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
