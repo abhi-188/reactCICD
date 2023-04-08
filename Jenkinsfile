@@ -10,37 +10,18 @@ pipeline {
 
         stage('Creating Image of build') {
             steps{
-                script {
-                    echo '---------------------------Building Image----------------------------------'
-                    sh 'docker build -t habhi/react_devops .'
-                    //build will serach for dockerfile in repository
-                    echo '---------------------------Image Successfully Build---------------------------------'
+                def imageExists = sh(script: "docker images -q habhi/react_devops ", returnStdout: true) == 0
+                    if(!imageExists){
+                        echo '---------------------------Building Image----------------------------------'
+                        sh 'docker build -t habhi/react_devops .'
+                        //build will serach for dockerfile in repository
+                        echo '---------------------------Image Successfully Build---------------------------------'   
+                    }
                 }
             }
         }
 
-        stage('Remove old Image') {
-            steps {
-                script { 
-                    def imageName = "react_devops"
-                    env.imageName = "${imageName}"
-                    def oldImageID = sh( 
-                                            script: 'docker images -qf reference=\${imageName}:\${imageTag}',
-                                            returnStdout: true
-                                        )
-
-                    echo "Image Name: " + "${imageName}"
-                    echo "Old Image: ${oldImageID}"
-
-                    if ( "${oldImageID}" != '' ) {
-                        echo "Deleting image id: ${oldImageID}..."
-                         sh "docker rmi -f ${oldImageID}"
-                    } else {
-                        echo "No image to delete..."
-                        } 
-                    }  
-                }
-            }
+        
 
         stage('Pushing image to DockerHub') {
             steps{
@@ -54,11 +35,11 @@ pipeline {
             }
         }
 
-        stage('Running container'){
+        stage('Running new container'){
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker run --name react_app -d -p 80:80 habhi/react_devops ' 
+                    sh 'docker run -d -p 80:80 habhi/react_devops ' 
                 }
             }
         }
