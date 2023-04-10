@@ -15,7 +15,7 @@ pipeline {
                     env.imageName = "${imageName}"
                     echo "${env.imageName}"
                     def oldImageID = sh( 
-                                            script: 'docker images -qf reference=\${imageName}:latest'
+                                            script: 'docker images -qf reference=\${imageName}:latest',
                                             returnStdout: true
                                         )
 
