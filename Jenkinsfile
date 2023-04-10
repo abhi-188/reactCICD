@@ -14,7 +14,7 @@ pipeline {
                     echo '-------------------------------Stoppig Previous container-----------------------'
                     def container_name = 'react_devops'
                     if("${BUILD_NUMBER}" > 0){
-                        sh "docker container stop ${container_name} "
+                        sh "docker rm --force ${container_name} "
                     }
                     else{
                         echo "--------------------------No running container-----------------------------"
@@ -82,7 +82,7 @@ pipeline {
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
                     sh 'docker pull habhi/react_devops:latest'
-                    sh 'docker run --name react_devops -d -e REDIS_NAMESPACE="react-devops" -p 80:80 habhi/react_devops:latest' 
+                    sh 'docker run --name react_devops -d -p 80:80 habhi/react_devops:latest' 
                 }   
             }
         }
