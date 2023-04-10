@@ -58,14 +58,30 @@ pipeline {
             }
         }
 
+        stage('Stop Previous container'){
+            steps{
+                script{
+                    echo '-------------------------------Stoppig Previous container-----------------------'
+                    def container_name = "react_devops"
+
+                    if("${REDIS_NAMESPACE}" == 'react-devops'){
+                        sh "docker stop ${container_name}"
+                    }
+                    else
+                    {
+                        echo 'No Container is running with this name'
+                    }
+                }
+            }
+        }
+
         stage('Production(Running Container)'){
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
                     sh 'docker pull habhi/react_devops:latest'
-                    sh 'docker run --name React_devops -d -p 80:80 habhi/react_devops:latest' 
-                }
-            }
+                    sh 'docker run --name react_devops -d -e REDIS_NAMESPACE="react-devops" -p 80:80 habhi/react_devops:latest' 
+                }   
         }
         // stage("Deploy") {
         //     steps {
