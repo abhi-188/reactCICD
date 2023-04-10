@@ -13,7 +13,7 @@ pipeline {
                 script{
                     echo '-------------------------------Stoppig Previous container-----------------------'
                     def container_name = 'react_devops'
-                    if("${BUILD_NO}" > 0){
+                    if("${BUILD_NUMBER}" > 0){
                         sh "docker container stop ${container_name} "
                     }
                     else{
