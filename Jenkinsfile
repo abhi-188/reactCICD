@@ -13,8 +13,9 @@ pipeline {
                 script { 
                     def imageName = "habhi/react_devops"
                     env.imageName = "${imageName}"
+                    echo "${env.imageName}"
                     def oldImageID = sh( 
-                                            script: 'docker images -qf reference=\${imageName}:\${imageTag}',
+                                            script: 'docker images -qf reference=\${imageName}:latest'
                                             returnStdout: true
                                         )
 
@@ -31,7 +32,7 @@ pipeline {
                     }  
                 }
             }
-            
+
 
         stage('Creating Image of build') {
             steps{
@@ -59,23 +60,23 @@ pipeline {
             }
         }
 
-        stage('Stop Previous container'){
-            steps{
-                script{
-                    echo '-------------------------------Stoppig Previous container-----------------------'
-                    def container_name = "react_devops"
-                    //env.container_name ="${container_name}"
+        // stage('Stop Previous container'){
+        //     steps{
+        //         script{
+        //             echo '-------------------------------Stoppig Previous container-----------------------'
+        //             def container_name = "react_devops"
+        //             //env.container_name ="${container_name}"
 
-                    if("${REDIS_NAMESPACE}" == 'react-devops'){
-                        sh "docker stop ${container_name}"
-                    }
-                    else
-                    {
-                        echo 'No Container is running with this name'
-                    }
-                }
-            }
-        }
+        //             if("${REDIS_NAMESPACE}" == 'react-devops'){
+        //                 sh "docker stop ${container_name}"
+        //             }
+        //             else
+        //             {
+        //                 echo 'No Container is running with this name'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Production(Running Container)'){
             steps{
