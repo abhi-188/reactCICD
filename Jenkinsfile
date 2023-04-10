@@ -8,6 +8,21 @@ pipeline {
             }
         }
 
+        stage('Stop Previous container'){
+            steps{
+                script{
+                    echo '-------------------------------Stoppig Previous container-----------------------'
+                    def container_name = 'react_devops'
+                    if("${BUILD_NO}" > 0){
+                        sh "docker container stop ${container_name} "
+                    }
+                    else{
+                        echo "--------------------------No running container-----------------------------"
+                    }
+                }
+            }
+        }
+
         stage('Remove old Image') {
             steps {
                 script { 
@@ -60,20 +75,7 @@ pipeline {
             }
         }
 
-        stage('Stop Previous container'){
-            steps{
-                script{
-                    echo '-------------------------------Stoppig Previous container-----------------------'
-                    def container_name = 'react_devops'
-                    if("${BUILD_NO}" > 0){
-                        sh "docker container stop ${container_name} "
-                    }
-                    else{
-                        echo "--------------------------No running container-----------------------------"
-                    }
-                }
-            }
-        }
+        
 
         stage('Production(Running Container)'){
             steps{
