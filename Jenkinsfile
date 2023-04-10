@@ -31,6 +31,7 @@ pipeline {
                     }  
                 }
             }
+            
 
         stage('Creating Image of build') {
             steps{
@@ -63,6 +64,7 @@ pipeline {
                 script{
                     echo '-------------------------------Stoppig Previous container-----------------------'
                     def container_name = "react_devops"
+                    //env.container_name ="${container_name}"
 
                     if("${REDIS_NAMESPACE}" == 'react-devops'){
                         sh "docker stop ${container_name}"
@@ -82,6 +84,7 @@ pipeline {
                     sh 'docker pull habhi/react_devops:latest'
                     sh 'docker run --name react_devops -d -e REDIS_NAMESPACE="react-devops" -p 80:80 habhi/react_devops:latest' 
                 }   
+            }
         }
         // stage("Deploy") {
         //     steps {
@@ -89,5 +92,6 @@ pipeline {
         //         sh "cp -r ${WORKSPACE}/build/ /var/www/react_app/"
         //     }
         // }
+            
     }
 }
