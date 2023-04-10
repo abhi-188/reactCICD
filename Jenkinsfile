@@ -60,23 +60,20 @@ pipeline {
             }
         }
 
-        // stage('Stop Previous container'){
-        //     steps{
-        //         script{
-        //             echo '-------------------------------Stoppig Previous container-----------------------'
-        //             def container_name = "react_devops"
-        //             //env.container_name ="${container_name}"
-
-        //             if("${REDIS_NAMESPACE}" == 'react-devops'){
-        //                 sh "docker stop ${container_name}"
-        //             }
-        //             else
-        //             {
-        //                 echo 'No Container is running with this name'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Stop Previous container'){
+            steps{
+                script{
+                    echo '-------------------------------Stoppig Previous container-----------------------'
+                    def container_name = 'react_devops'
+                    if("${BUILD_NO}" > 0){
+                        sh "docker container stop ${container_name} "
+                    }
+                    else{
+                        echo "--------------------------No running container-----------------------------"
+                    }
+                }
+            }
+        }
 
         stage('Production(Running Container)'){
             steps{
