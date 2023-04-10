@@ -8,6 +8,29 @@ pipeline {
             }
         }
 
+        stage('Remove old Image') {
+            steps {
+                script { 
+                    def imageName = "habhi/react_devops"
+                    env.imageName = "${imageName}"
+                    def oldImageID = sh( 
+                                            script: 'docker images -qf reference=\${imageName}:\${imageTag}',
+                                            returnStdout: true
+                                        )
+
+                    echo "Image Name: " + "${imageName}"
+                    echo "Old Image: ${oldImageID}"
+
+                    if ( "${oldImageID}" != '' ) {
+                        echo "Deleting image id: ${oldImageID}..."
+                        sh "docker rmi -f ${oldImageID}"
+                    }
+                    else {
+                        echo "No image to delete..."
+                        } 
+                    }  
+                }
+            }
 
         stage('Creating Image of build') {
             steps{
@@ -35,11 +58,12 @@ pipeline {
             }
         }
 
-        stage('Running container'){
+        stage('Production(Running Container)'){
             steps{
                 script{
                     echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker run -d habhi/react_devops:latest ' 
+                    sh 'docker pull habhi/react_devops:latest'
+                    sh 'docker run --name React_devops -d -p 80:80 habhi/react_devops:latest' 
                 }
             }
         }
