@@ -77,21 +77,23 @@ pipeline {
 
         
 
-        stage('Production(Running Container)'){
-            steps{
-                script{
-                    echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker pull habhi/react_devops:latest'
-                    sh 'docker run --name react_devops -d -p 80:80 habhi/react_devops:latest' 
-                }   
-            }
-        }
-        // stage("Deploy") {
-        //     steps {
-        //         sh "rm -rf /var/www/react_app"
-        //         sh "cp -r ${WORKSPACE}/build/ /var/www/react_app/"
+        // stage('Production(Running Container)'){
+        //     steps{
+        //         script{
+        //             echo '-----------------------------Running Container-------------------------------------'
+        //             sh 'docker pull habhi/react_devops:latest'
+        //             sh 'docker run --name react_devops -d -p 80:80 habhi/react_devops:latest' 
+        //         }   
         //     }
         // }
+        stage('K8s Deployment'){
+            steps{
+                script{
+                    sh 'kubectl apply -f react-svc.yml'
+                    sh 'kubectl get pods'
+                }
+            }
+        }
             
     }
 }
