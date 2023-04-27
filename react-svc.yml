@@ -1,12 +1,26 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: 
+#   labels:
+#     env: dev
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 80
+#   selector:
+#     env: dev
+
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-app
-  labels:
-    env: dev
+  name: react-devops-service
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
   selector:
-    env: dev
+    app: react-devops
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
