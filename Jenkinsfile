@@ -89,8 +89,8 @@ pipeline {
         stage('K8s Deployment'){
             steps{
                 script{
-                    sh 'kubectl apply -f react-svc.yml'
-                    sh 'kubectl get pods'
+                    sh '/usr/local/bin/kubectl apply -f react-svc.yml'
+                    sh '/usr/local/bin/kubectl kubectl get pods'
                 }
             }
         }
