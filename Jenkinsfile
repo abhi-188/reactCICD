@@ -94,8 +94,8 @@ pipeline {
 
                 }*/
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                    sh 'kubectl get nodes'
-                    sh 'kubectl apply -f react-svc.yml'
+                    sh '/usr/local/bin/kubectl get nodes'
+                    sh '/usr/local/bin/kubectl apply -f react-svc.yml'
                 }
             }
         }
