@@ -88,17 +88,17 @@ pipeline {
         // }
         stage('K8s Deployment'){
             steps{
-                /*script{
-                    sh '/usr/local/bin/kubectl apply -f react-svc.yml'
-                    sh '/usr/local/bin/kubectl kubectl get pods'
+                script{
+                    // sh '/usr/local/bin/kubectl apply -f ~/react-svc.yml'
+                    sh '/usr/local/bin/kubectl kubectl get nodes'
 
-                }*/
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: 'https://38DB0FEA005008A7C1A1D14B3555B550.gr7.us-east-1.eks.amazonaws.com') {
-                    // sh 'curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl'
-                    // sh 'chmod u+x ./kubectl'
-                    sh 'kubectl get nodes'
-                    sh 'kubectl apply -f react-svc.yml'
                 }
+                // withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: 'https://38DB0FEA005008A7C1A1D14B3555B550.gr7.us-east-1.eks.amazonaws.com') {
+                //     // sh 'curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl'
+                //     // sh 'chmod u+x ./kubectl'
+                //     sh 'kubectl get nodes'
+                //     sh 'kubectl apply -f react-svc.yml'
+                // }
             }
         }
             
