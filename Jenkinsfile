@@ -88,9 +88,13 @@ pipeline {
         // }
         stage('K8s Deployment'){
             steps{
-                script{
+                /*script{
                     sh '/usr/local/bin/kubectl apply -f react-svc.yml'
                     sh '/usr/local/bin/kubectl kubectl get pods'
+
+                }*/
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                    sh 'kubectl get nodes'
                 }
             }
         }
