@@ -93,9 +93,9 @@ pipeline {
                     sh '/usr/local/bin/kubectl kubectl get pods'
 
                 }*/
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                    sh '/usr/local/bin/kubectl get nodes'
-                    sh '/usr/local/bin/kubectl apply -f react-svc.yml'
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
+                    sh 'kubectl get nodes'
+                    sh 'kubectl apply -f react-svc.yml'
                 }
             }
         }
