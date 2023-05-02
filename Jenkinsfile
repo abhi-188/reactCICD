@@ -94,8 +94,8 @@ pipeline {
 
                 }*/
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
-                    sh 'curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl'
-                    sh 'chmod u+x ./kubectl'
+                    // sh 'curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl'
+                    // sh 'chmod u+x ./kubectl'
                     sh 'kubectl get nodes'
                     sh 'kubectl apply -f react-svc.yml'
                 }
