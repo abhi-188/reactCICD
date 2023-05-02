@@ -90,7 +90,7 @@ pipeline {
             steps{
                 script{
                     // sh '/usr/local/bin/kubectl apply -f ~/react-svc.yml'
-                    sh '/usr/local/bin/kubectl kubectl get nodes'
+                    sh '/usr/local/bin/kubectl get nodes'
 
                 }
                 // withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: 'https://38DB0FEA005008A7C1A1D14B3555B550.gr7.us-east-1.eks.amazonaws.com') {
