@@ -1,27 +1,3 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: react-app
-#   labels:
-#     env: dev
-# spec:
-#   replicas: 3
-#   selector:
-#     matchLabels:
-#       env: dev
-#       app: react-app
-#   template:
-#     metadata:
-#       labels:
-#         env: dev
-#         app: react-app
-#     spec:
-#       containers:
-#       - name: react-app
-#         image: 795361990663.dkr.ecr.us-east-1.amazonaws.com/maven-hello-world:latest
-#         ports:
-#         - containerPort: 80
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
