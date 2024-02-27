@@ -75,8 +75,8 @@ pipeline {
                     echo '-----------------------------Pushing Image----------------------------------------'
                     /* groovylint-disable-next-line NestedBlockDepth */
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                        docker.image(DOCKER_IMAGE_NAME).push(DOCKER_IMAGE_TAG)
-                        //sh 'docker push habhi/react_devops'
+                        //docker.image(DOCKER_IMAGE_NAME).push(DOCKER_IMAGE_TAG)
+                        sh 'docker push habhi/react_devops'
                         echo '-------------------------Image Successfully pushed--------------------------------'
                     }
                 } 
