@@ -1,5 +1,12 @@
 pipeline {
      agent any
+
+    environment {
+        DOCKER_CREDENTIALS = credentials('Docker_ID')
+        DOCKER_IMAGE_NAME = 'habhi/react_devops'
+        DOCKER_IMAGE_TAG = 'latest'
+    }
+
      stages {
         stage("Build") {
             steps {
@@ -67,8 +74,9 @@ pipeline {
                 script{
                     echo '-----------------------------Pushing Image----------------------------------------'
                     /* groovylint-disable-next-line NestedBlockDepth */
-                    docker.withRegistry('', 'Docker_ID') {
-                        sh 'docker push habhi/react_devops'
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
+                        docker.image(DOCKER_IMAGE_NAME).push(DOCKER_IMAGE_TAG)
+                        //sh 'docker push habhi/react_devops'
                         echo '-------------------------Image Successfully pushed--------------------------------'
                     }
                 } 
