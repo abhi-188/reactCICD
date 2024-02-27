@@ -54,10 +54,8 @@ pipeline {
 
         stage('Deploy on k8s'){
             steps{
-                script{
-                    kubernetesDeploy(configs: "react-deployment.yml","react-svc.yml")
-                }
-            }  
+                kubernetesDeploy(configs: "react-deployment.yml","react-svc.yml")
+            }   
         }
     }
 }
