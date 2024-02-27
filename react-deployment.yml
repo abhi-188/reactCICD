@@ -2,11 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: react-devops-deployment
+  label: react-devops
 spec:
   selector:
     matchLabels:
       app: react-devops
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:

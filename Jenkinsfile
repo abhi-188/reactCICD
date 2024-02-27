@@ -52,13 +52,10 @@ pipeline {
             }
         }
 
-        stage('Production(Running Container)'){
-            steps{
-                script{
-                    echo '-----------------------------Running Container-------------------------------------'
-                    sh 'docker pull habhi/react_devops:latest'
-                    sh 'docker run --name react_devops -d -p 80:80 habhi/react_devops:latest' 
-                }   
+        stage('Deploy on k8s')
+        steps{
+            script{
+                kubernetesDeploy(configs: "react-deployment.yml","react-svc.yml")
             }
         }
     }

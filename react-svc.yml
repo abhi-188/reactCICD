@@ -6,7 +6,7 @@ spec:
   selector:
     app: react-devops
   ports:
-    - name: http
-      port: 80
+    - name: TCP
+      port: 3000
       targetPort: 3000
   type: LoadBalancer
