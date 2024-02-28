@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: react-devops-deployment
-  label: react-devops
+  labels: 
+    app: react-devops
 spec:
   selector:
     matchLabels:
