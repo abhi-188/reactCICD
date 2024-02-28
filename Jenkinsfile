@@ -65,6 +65,9 @@ pipeline {
                     sh 'kubectl get pods'
                     sh 'kubectl apply react-deployment.yml'
                     sh 'kubectl apply react-svc.yml'
+                    sh 'kubectl get svc'
+                    sh 'kubectl get deploy'
+                    sh 'kubectl get pods'
                 }
             }   
         }
