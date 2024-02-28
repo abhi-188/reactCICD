@@ -63,9 +63,13 @@ pipeline {
                 ){
                     script{
                         def deploymentExists = sh(
-                            script:'kubectl get deploy react-devops-deployment -o name',returnStatus=true)==0
+                            script:'kubectl get deploy react-devops-deployment -o name',
+                            returnStatus: true
+                        ) == 0
                         def serviceExists = sh(
-                            script:'kubectl get svc react-devops-service -o name',returnStatus=true)==0
+                            script:'kubectl get svc react-devops-service -o name',
+                            returnStatus: true
+                        ) == 0
 
                         if(deploymentExists){
                             sh 'kubectl delete -f react-deployment.yml'
