@@ -3,6 +3,7 @@ pipeline {
         registry = "habhi/react_devops"
         DOCKER_CREDENTIALS = 'Docker_ID'
         dockerImage = ''
+        K8S_CREDENTIALS = 'kubeconfig'
     }
     agent any
     stages {
@@ -54,7 +55,15 @@ pipeline {
 
         stage('Deploy on k8s'){
             steps{
-                kubernetesDeploy(configs: "react-deployment.yml","react-svc.yml")
+                withKubeConfig(
+                    credentialsId: K8S_CREDENTIALS,
+                    caCertificate: '',
+                    clusterName: 'minikube',
+                    namespace: 'default',
+                    serverUrl: ''
+                ){
+                    sh 'kubectl get pods'
+                }
             }   
         }
     }
