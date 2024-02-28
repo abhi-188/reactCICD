@@ -59,31 +59,32 @@ pipeline {
                     credentialsId: K8S_CREDENTIALS,
                     caCertificate: '',
                     clusterName: 'minikube',
-                    namespace: 'default',
-                    serverUrl: ''
+                    namespace: 'default',                        serverUrl: ''
                 ){
-                    def deploymentExists = sh(
-                        script:'kubectl get deploy react-devops-deployment -o name',returnStatus=true)==0
-                    def serviceExists = sh(
-                        script:'kubectl get svc react-devops-service -o name',returnStatus=true)==0
+                    script{
+                        def deploymentExists = sh(
+                            script:'kubectl get deploy react-devops-deployment -o name',returnStatus=true)==0
+                        def serviceExists = sh(
+                            script:'kubectl get svc react-devops-service -o name',returnStatus=true)==0
 
-                    if(deploymentExists){
-                        sh 'kubectl delete -f react-deployment.yml'
+                        if(deploymentExists){
+                            sh 'kubectl delete -f react-deployment.yml'
+                        }
+                        if(serviceExists){
+                            sh 'kubectl delete -f react-svc.yml'
+                        }
+                        
+                        sh 'kubectl apply -f react-deployment.yml'
+                        sh 'kubectl apply -f react-svc.yml'
+
+                        sh 'sleep 10'
+
+                        sh 'kubectl get svc'
+                        sh 'kubectl get deploy'
+                        sh 'kubectl get pods'
                     }
-                    if(serviceExists){
-                        sh 'kubectl delete -f react-svc.yml'
-                    }
-                    
-                    sh 'kubectl apply -f react-deployment.yml'
-                    sh 'kubectl apply -f react-svc.yml'
-
-                    sh 'sleep 10'
-
-                    sh 'kubectl get svc'
-                    sh 'kubectl get deploy'
-                    sh 'kubectl get pods'
-                }
-            }   
+                } 
+            }  
         }
     }
 }
