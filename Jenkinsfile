@@ -62,11 +62,23 @@ pipeline {
                     namespace: 'default',
                     serverUrl: ''
                 ){
-                    sh 'kubectl get pods'
-                    //sh 'kubectl delete -f react-deployment.yml'
-                    //sh 'kubectl delete -f react-svc.yml'
+                    def deploymentExists = sh(
+                        script:'kubectl get deploy react-devops-deployment -o name',returnStatus=true)==0
+                    def serviceExists = sh(
+                        script:'kubectl get svc react-devops-service -o name',returnStatus=true)==0
+
+                    if(deploymentExists){
+                        sh 'kubectl delete -f react-deployment.yml'
+                    }
+                    if(serviceExists){
+                        sh 'kubectl delete -f react-svc.yml'
+                    }
+                    
                     sh 'kubectl apply -f react-deployment.yml'
                     sh 'kubectl apply -f react-svc.yml'
+
+                    sh 'sleep 10'
+
                     sh 'kubectl get svc'
                     sh 'kubectl get deploy'
                     sh 'kubectl get pods'
