@@ -63,6 +63,8 @@ pipeline {
                     serverUrl: ''
                 ){
                     sh 'kubectl get pods'
+                    sh 'kubectl apply react-deployment.yml'
+                    sh 'kubectl apply react-svc.yml'
                 }
             }   
         }
