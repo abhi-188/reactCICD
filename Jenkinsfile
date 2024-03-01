@@ -77,11 +77,13 @@ pipeline {
                         if(serviceExists){
                             sh 'kubectl delete -f react-svc.yml'
                         }
-                        
-                        sh 'kubectl apply -f react-deployment.yml'
-                        sh 'kubectl apply -f react-svc.yml'
 
-                        sh 'sleep 10'
+                        sh 'helm install react-app react-cicd-chart/'
+                        
+                        //sh 'kubectl apply -f react-deployment.yml'
+                        //sh 'kubectl apply -f react-svc.yml'
+
+                        //sh 'sleep 10'
 
                         sh 'kubectl get svc'
                         sh 'kubectl get deploy'
