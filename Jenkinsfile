@@ -75,8 +75,8 @@ pipeline {
                             sh 'helm install react-app react-cicd-chart/'
                         }
 
-                        sh 'sleep 20'
-                        
+                        sh 'kubectl rollout status deployment react-devops-deployment'
+
                         sh 'kubectl get svc'
                         sh 'kubectl get deploy'
                         sh 'kubectl get pods'
