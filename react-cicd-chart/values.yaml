@@ -1,0 +1,10 @@
+metadata:
+  labels:
+    app: react-devops
+
+spec:
+  type: LoadBalancer
+
+image: habhi/react_devops:latest
+
+replicas: 2

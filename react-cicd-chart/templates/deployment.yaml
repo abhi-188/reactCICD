@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-devops-deployment
+  namespace: default
+  labels: 
+    app: {{ .Values.metadata.labels.app}}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.metadata.labels.app}}
+  replicas: {{ .Values.replicas}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.metadata.labels.app}}
+    spec:
+      containers:
+        - name: {{ .Values.metadata.labels.app}}
+          image: {{ .Values.image}}
+          ports:
+            - containerPort: 3000

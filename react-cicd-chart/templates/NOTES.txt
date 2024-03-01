@@ -1,0 +1,14 @@
+# Create template 
+`helm create react-cicd-chart`
+
+# Install the template 
+`helm install react-app react-cicd-chart/ `
+
+# Upgrade after templating
+`helm upgrade react-app react-cicd-chart/ --values react-cicd-chart/values.yaml`
+
+# Accessing the application
+```
+minikube tunnel
+kubectl port-forward service/react-devops-service 8888:80
+```
