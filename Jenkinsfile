@@ -59,32 +59,24 @@ pipeline {
                     credentialsId: K8S_CREDENTIALS,
                     caCertificate: '',
                     clusterName: 'minikube',
-                    namespace: 'default',                        serverUrl: ''
+                    namespace: 'default',     
+                    serverUrl: ''
                 ){
                     script{
-                        def deploymentExists = sh(
-                            script:'kubectl get deploy react-devops-deployment -o name',
-                            returnStatus: true
-                        ) == 0
-                        def serviceExists = sh(
-                            script:'kubectl get svc react-devops-service -o name',
-                            returnStatus: true
-                        ) == 0
-
-                        if(deploymentExists){
-                            sh 'kubectl delete -f react-deployment.yml'
-                        }
-                        if(serviceExists){
-                            sh 'kubectl delete -f react-svc.yml'
-                        }
-
-                        sh 'helm install react-app react-cicd-chart/'
                         
-                        //sh 'kubectl apply -f react-deployment.yml'
-                        //sh 'kubectl apply -f react-svc.yml'
+                        def helmListOutput = sh(
+                            script: 'helm list -q',
+                            returnStdout: true
+                        ).trim()
 
-                        //sh 'sleep 10'
+                        if (helmListOutput.contains('react-app')) {
+                            sh 'helm upgrade react-app react-cicd-chart/'
+                        } else {
+                            sh 'helm install react-app react-cicd-chart/'
+                        }
 
+                        sh 'sleep 20'
+                        
                         sh 'kubectl get svc'
                         sh 'kubectl get deploy'
                         sh 'kubectl get pods'
